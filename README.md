@@ -7,7 +7,7 @@
 - [Tailwind CSS](https://tailwindcss.com)
 - [TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview)
 
-## API
+## API
 
 ### Testing the API with OpenAPI
 
@@ -77,6 +77,8 @@ Tests should be placed in:
 - Files ending with `.test.ts` or `.test.tsx`
 - Files ending with `.spec.ts` or `.spec.tsx`
 
-## How do I deploy this?
+## Deployment
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+This application is deployed with [Vercel](https://vercel.com), which provides seamless deployment for Next.js applications.
+
+Here is the URL:

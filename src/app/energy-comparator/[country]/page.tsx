@@ -4,7 +4,7 @@ import { getOffers, getProviders } from "~/lib/energy-data-json";
 export default async function CountryPage({
   params,
 }: {
-  params: { country: string };
+  params: Promise<{ country: string }>;
 }) {
   const { country } = await params;
 

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import { Header } from "~/components/layout/header";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib/cn";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
