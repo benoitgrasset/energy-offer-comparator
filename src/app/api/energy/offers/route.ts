@@ -4,12 +4,13 @@ import { getOffers } from "~/lib/energy-data-json";
 export const GET = async (request: NextRequest) => {
   try {
     const searchParams = request.nextUrl.searchParams;
+    const country = searchParams.get("country") || undefined;
     const providers = searchParams.get("providers");
     const renewable = searchParams.get("renewable");
     const priceGuarantee = searchParams.get("priceGuarantee");
     const contractDuration = searchParams.get("contractDuration");
 
-    const rawOffers = await getOffers();
+    const rawOffers = await getOffers(country);
 
     const offers = rawOffers.filter((offer) => {
       // Filter by providers if specified

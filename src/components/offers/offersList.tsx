@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
-import { Card } from "~/components/ui/card";
+import { Card, CardContent } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
 import {
   Select,
@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Switch } from "~/components/ui/switch";
+import { useDurations, usePricingTypes } from "~/hooks/useEnums";
 import { useOffers } from "~/hooks/useOffers";
 import type {
   EnergyOffer,
@@ -24,8 +25,9 @@ import type {
   SortOption,
 } from "~/types";
 import { calculateTotalAnnualCost } from "~/utils/pricing";
-import { FilterSidebar } from "./FilterSidebar";
-import { OfferCard } from "./OfferCard";
+import { Skeleton } from "../ui/skeleton";
+import { FilterSidebar } from "./filterSidebar";
+import { OfferCard } from "./offerCard";
 
 type Props = {
   providers: EnergyProvider[];
@@ -52,11 +54,15 @@ export const OffersList = ({ providers, country }: Props) => {
   });
 
   const { data: offers, isLoading } = useOffers({
+    country,
     selectedProviders,
     renewable,
     priceGuarantee: selectedPricingTypes,
     contractDuration: selectedContractDurations,
   });
+
+  const { data: pricingTypes } = usePricingTypes();
+  const { data: durations } = useDurations();
 
   useEffect(() => {
     setPriceRange([0, maxPrice]);
@@ -106,6 +112,52 @@ export const OffersList = ({ providers, country }: Props) => {
         }),
     [offers, priceRange, priceView, sortOption]
   );
+
+  const renderOffers = () => {
+    if (isLoading) {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, index) => (
+            <Card key={index} className="h-96">
+              <CardContent className="p-6">
+                <Skeleton className="h-6 w-32 mb-2" />
+                <Skeleton className="h-4 w-24 mb-4" />
+                <Skeleton className="h-16 w-full mb-4" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      );
+    }
+    if (filteredOffers?.length === 0) {
+      return (
+        <Card className="p-8 text-center">
+          <Filter className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            No offers found
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Try adjusting your filters to see more options.
+          </p>
+          <Button onClick={handleClearFilters} variant="outline">
+            Clear All Filters
+          </Button>
+        </Card>
+      );
+    }
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {filteredOffers?.map((offer) => (
+          <OfferCard
+            key={offer.id}
+            offer={offer}
+            priceView={priceView}
+            onSelect={handleOfferSelect}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -183,37 +235,13 @@ export const OffersList = ({ providers, country }: Props) => {
             maxPrice={maxPrice}
             onClearFilters={handleClearFilters}
             priceView={priceView}
+            pricingTypes={pricingTypes}
+            durations={durations}
           />
         </div>
 
         {/* Offers Grid */}
-        <div className="lg:col-span-3">
-          {filteredOffers?.length === 0 ? (
-            <Card className="p-8 text-center">
-              <Filter className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                No offers found
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Try adjusting your filters to see more options.
-              </p>
-              <Button onClick={handleClearFilters} variant="outline">
-                Clear All Filters
-              </Button>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredOffers?.map((offer) => (
-                <OfferCard
-                  key={offer.id}
-                  offer={offer}
-                  priceView={priceView}
-                  onSelect={handleOfferSelect}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+        <div className="lg:col-span-3">{renderOffers()}</div>
       </div>
     </div>
   );

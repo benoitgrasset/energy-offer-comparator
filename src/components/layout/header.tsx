@@ -1,7 +1,7 @@
 import { ZapIcon } from "lucide-react";
 import Link from "next/link";
-import { Settings } from "../Settings";
 import CountrySelector from "../countrySelector";
+import { Settings } from "../settings";
 import { ModeToggle } from "../theme/theme-mode-toggle";
 import { Button } from "../ui/button";
 

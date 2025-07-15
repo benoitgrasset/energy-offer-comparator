@@ -1,5 +1,5 @@
-import { OffersList } from "~/components/offers/OffersList";
-import { getOffers, getProviders } from "~/lib/energy-data-json";
+import { OffersList } from "~/components/offers/offersList";
+import { getProviders } from "~/lib/energy-data-json";
 
 export default async function CountryPage({
   params,
@@ -9,7 +9,6 @@ export default async function CountryPage({
   const { country } = await params;
 
   // Call the functions directly instead of making HTTP requests
-  const offers = await getOffers();
   const providers = await getProviders();
 
   return (

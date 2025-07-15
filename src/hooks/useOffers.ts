@@ -7,22 +7,25 @@ const getOffers = async (params: URLSearchParams) => {
 };
 
 export const useOffers = ({
+  country,
   selectedProviders,
   renewable,
   priceGuarantee,
   contractDuration,
 }: {
+  country: string;
   selectedProviders: string[];
   renewable: boolean | null;
   priceGuarantee: PriceGuarantee[];
   contractDuration: string[];
 }) => {
   const params = new URLSearchParams({
+    country,
     ...(selectedProviders.length > 0 && {
       providers: selectedProviders.join(","),
     }),
     ...(renewable !== null && { renewable: renewable.toString() }),
-    ...(priceGuarantee !== null && {
+    ...(priceGuarantee.length > 0 && {
       priceGuarantee: priceGuarantee.join(","),
     }),
     ...(contractDuration.length > 0 && {
@@ -33,6 +36,7 @@ export const useOffers = ({
   return useQuery({
     queryKey: [
       "offers",
+      country,
       selectedProviders,
       renewable,
       priceGuarantee,

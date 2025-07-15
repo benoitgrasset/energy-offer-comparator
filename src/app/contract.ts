@@ -81,6 +81,22 @@ export const contract = c.router({
       },
     },
   },
+  enum: {
+    getPricingTypes: {
+      method: "GET",
+      path: "/api/enum/pricingTypes",
+      responses: {
+        200: z.array(z.string()),
+      },
+    },
+    getDurations: {
+      method: "GET",
+      path: "/api/enum/durations",
+      responses: {
+        200: z.array(z.string()),
+      },
+    },
+  },
 });
 
 export const openApi = generateOpenApi(contract, {

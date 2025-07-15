@@ -16,6 +16,7 @@ import type { EnergyProvider, PriceGuarantee, PriceView } from "~/types";
 import { formatPrice } from "~/utils/pricing";
 
 type Props = {
+  durations?: string[];
   maxPrice: number;
   onClearFilters: () => void;
   onContractDurationsChange: (contractDurations: string[]) => void;
@@ -25,6 +26,7 @@ type Props = {
   onRenewableChange: (renewable: boolean | null) => void;
   priceRange: [number, number];
   priceView: PriceView;
+  pricingTypes?: PriceGuarantee[];
   providers: EnergyProvider[];
   renewable: boolean | null;
   selectedContractDurations: string[];
@@ -33,20 +35,22 @@ type Props = {
 };
 
 export function FilterSidebar({
-  providers,
-  selectedProviders,
-  onProviderChange,
-  renewable,
-  onRenewableChange,
-  selectedPricingTypes,
-  onPricingTypesChange,
-  selectedContractDurations,
-  onContractDurationsChange,
-  priceRange,
-  onPriceRangeChange,
+  durations,
   maxPrice,
   onClearFilters,
+  onContractDurationsChange,
+  onPriceRangeChange,
+  onPricingTypesChange,
+  onProviderChange,
+  onRenewableChange,
+  priceRange,
   priceView,
+  pricingTypes,
+  providers,
+  renewable,
+  selectedContractDurations,
+  selectedPricingTypes,
+  selectedProviders,
 }: Props) {
   const [openSections, setOpenSections] = useState({
     providers: false,
@@ -198,16 +202,13 @@ export function FilterSidebar({
             )}
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-2 space-y-2">
-            {/* @TODO: Add pricing types from the API */}
-            {(
-              ["fixed", "dynamic", "indexed", "dual_rate"] as PriceGuarantee[]
-            ).map((pricingType) => (
+            {pricingTypes?.map((pricingType) => (
               <CheckboxFilter
                 key={pricingType}
                 id={pricingType}
                 checked={selectedPricingTypes.includes(pricingType)}
                 onCheckedChange={() => handlePricingTypeToggle(pricingType)}
-                label={pricingType}
+                label={pricingType.replace("_", " ")}
                 className="capitalize"
               />
             ))}
@@ -228,13 +229,7 @@ export function FilterSidebar({
             )}
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-2 space-y-2">
-            {[
-              "12 months",
-              "18 months",
-              "24 months",
-              "36 months",
-              "no commitment",
-            ].map((duration) => (
+            {durations?.map((duration) => (
               <CheckboxFilter
                 key={duration}
                 id={duration}
