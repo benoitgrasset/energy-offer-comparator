@@ -32,7 +32,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 - [TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview)
 - [shadcn-ui](https://ui.shadcn.com/)
 
-## Testing with Vitest
+## Tests
 
 This project uses [Vitest](https://vitest.dev/) as the testing framework, which provides a fast and modern testing experience with native TypeScript support.
 
