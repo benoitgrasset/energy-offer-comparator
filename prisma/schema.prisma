@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model EnergyProvider {
+    id           String        @id @default(uuid())
+    slug         String        @unique
+    display_name String
+    country      String
+    EnergyOffer  EnergyOffer[]
+}
+
+model EnergyOffer {
+    id                  String         @id
+    slug                String         @unique
+    name                String
+    description         String
+    provider            EnergyProvider @relation(fields: [providerId], references: [id])
+    providerId          String
+    consumption_pricing Float
+    subscription_cost   Float
+    metadata            Json
+}
