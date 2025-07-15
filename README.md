@@ -30,6 +30,7 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 - [Prisma](https://prisma.io)
 - [Tailwind CSS](https://tailwindcss.com)
 - [TanStack Query](https://tanstack.com/query/latest/docs/framework/react/overview)
+- [shadcn-ui](https://ui.shadcn.com/)
 
 ## Testing with Vitest
 
