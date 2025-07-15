@@ -21,8 +21,15 @@ export const getProviderById = async (
   return provider || null;
 };
 
-export const getOffers = async (): Promise<EnergyOffer[]> => {
-  return EneryOffersJSON.energy_offers as EnergyOffer[];
+export const getOffers = async (country?: string): Promise<EnergyOffer[]> => {
+  const offers = EneryOffersJSON.energy_offers as EnergyOffer[];
+  if (country) {
+    const providers = await getProviders(country);
+    return offers.filter((offer) =>
+      providers.some((provider) => provider.id === offer.provider_id)
+    );
+  }
+  return offers;
 };
 
 export const getOffersByProviderId = async (

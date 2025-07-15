@@ -1,9 +1,11 @@
 import { Zap } from "lucide-react";
+import Link from "next/link";
+import { Button } from "~/components/ui/button";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-green-50">
+      <div className="min-h-screen">
         {/* Hero Section */}
         <div className="container mx-auto px-4 py-16">
           <div className="text-center mb-16">
@@ -21,24 +23,11 @@ export default function HomePage() {
               money, choose renewable energy, and find the best rates for your
               home.
             </p>
-
-            {/* Stats Section */}
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-4xl font-bold text-blue-600 mb-2">8+</div>
-                <div className="text-gray-600">Energy Providers</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-green-600 mb-2">
-                  €300+
-                </div>
-                <div className="text-gray-600">Average Annual Savings</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-purple-600 mb-2">2</div>
-                <div className="text-gray-600">Countries Available</div>
-              </div>
-            </div>
+          </div>
+          <div className="flex items-center justify-center">
+            <Link href="/energy-comparator/france">
+              <Button>Compare Energy Offers</Button>
+            </Link>
           </div>
         </div>
       </div>
