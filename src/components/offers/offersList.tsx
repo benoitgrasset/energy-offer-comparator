@@ -170,7 +170,7 @@ export const OffersList = ({ providers, country }: Props) => {
       </div>
 
       {/* Controls */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6 bg-white p-4 rounded-lg border">
+      <div className="flex flex-col sm:flex-row gap-4 mb-6 p-4 rounded-lg border bg-background">
         <div className="flex items-center space-x-2">
           <Switch
             id="price-view"

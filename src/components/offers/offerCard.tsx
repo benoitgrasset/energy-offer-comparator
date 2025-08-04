@@ -97,9 +97,9 @@ export const OfferCard = ({ offer, priceView, onSelect }: Props) => {
 
       <CardContent className="space-y-4">
         {/* Price Section */}
-        <div className="bg-blue-50 p-4 rounded-lg">
+        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-3xl font-bold text-blue-900">
+            <span className="text-3xl font-bold text-blue-900 dark:text-blue-100">
               {formatPrice(price)}
             </span>
             <span className="text-sm text-gray-600">per {period}</span>
