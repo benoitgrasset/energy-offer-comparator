@@ -23,8 +23,8 @@ model EnergyOffer {
     slug                String         @unique
     name                String
     description         String
-    provider            EnergyProvider @relation(fields: [providerId], references: [id])
-    providerId          String
+    provider            EnergyProvider @relation(fields: [provider_id], references: [id])
+    provider_id         String
     consumption_pricing Float
     subscription_cost   Float
     metadata            Json

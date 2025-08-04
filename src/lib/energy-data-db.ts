@@ -1,5 +1,15 @@
 import type { EnergyOffer, EnergyProvider } from "@prisma/client";
 import { db } from "~/server/db";
+import EneryOffersJSON from "../server/data/Energy_Offers.json";
+import EnergyProvidersJSON from "../server/data/Energy_Providers.json";
+
+export const seedDatabase = async () => {
+  const providers = EnergyProvidersJSON.energy_providers;
+  const offers = EneryOffersJSON.energy_offers;
+
+  await db.energyProvider.createMany({ data: providers });
+  await db.energyOffer.createMany({ data: offers });
+};
 
 export const getProviders = async (): Promise<EnergyProvider[]> => {
   try {
@@ -44,7 +54,7 @@ export const getOffersByProviderId = async (
 ): Promise<EnergyOffer[]> => {
   try {
     const offers = await db.energyOffer.findMany({
-      where: { providerId },
+      where: { provider_id: providerId },
       orderBy: { id: "asc" },
     });
     return offers;

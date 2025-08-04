@@ -104,5 +104,13 @@ The raw data is provided in JSON files for simplicity, but the application can b
 How to create the database:
 
 ```sql
-createdb -U postgres -h localhost atp-ranking
+createdb -U postgres -h localhost energy-offer-comparator
+```
+
+```sql
+psql -U postgres -h localhost -d energy-offer-comparator
+```
+
+```sql
+npx prisma migrate dev
 ```

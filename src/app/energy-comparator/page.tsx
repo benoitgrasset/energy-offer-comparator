@@ -1,8 +1,13 @@
 import { Zap } from "lucide-react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import { seedDatabase } from "~/lib/energy-data-db";
 
-export default function HomePage() {
+export default function EnergyComparatorPage() {
+  seedDatabase().then(() => {
+    console.log("Database seeded");
+  });
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-green-50">
       <div className="min-h-screen">
